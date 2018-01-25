@@ -1,3 +1,7 @@
+---
+title: Working within Glyphs App
+---
+
 # 4. Working With Glyphs
 
 In this Section, we will:
