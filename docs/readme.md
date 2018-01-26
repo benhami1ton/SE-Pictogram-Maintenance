@@ -1,5 +1,9 @@
-<a name="top"></a>
-Table of Contents
+Introduction
+-------------
+The goal of this documentation is to provide in-depth information on how to update the Pictogram font used by Schneider Electric in various design applications. By following this guide in order, the reader should have a full grasp on the steps needed to update the font, as well as some insight into how the automation process is working.
+
+
+<a name="top"></a>Table of Contents
 ------------------
 
 ### **[0. Setup](#setup)**
