@@ -48,6 +48,7 @@ To quickly test these files, this GitHub repository has been set up to accomodat
 
 1. Download the [latest release](https://github.com/benhami1ton/SE-Pictogram-Maintenance/releases/).
 2. Add EPS files to the `/EPS` folder.
+3. Add CSV file to the `/CSV` folder, renaming it the same name as the latest release. (Example: GitHub Release = SE-Pictogram-Maintenance-0.1.zip, so CSV = SE-Pictogram-Maintenance-0.1.csv)
 3. Open Glyphs file.
 4. Copy each script into the Macro window and run, taking care to look for any "Quick Start Instructions" at the top of the code.
 
@@ -137,7 +138,7 @@ Save the most recent Glyphs app file as a new document for the purposes of this 
 
 <a name="addglyphs"></a>4.2 Create new glyph slots, using the CSV file
 -----------------------
-Using the first script in the Scripts menu bar, run `Add New Glyphs Based on CSV...`. No Glyphs need to be selected to run this script.
+Using the first script in the Scripts menu bar, run `Add New Glyphs From CSV...`. No Glyphs need to be selected to run this script.
 
 ### What does this script do?
 This script compares the CSV file to the existing Glyphs file that is open. If there are new entries with Unicode values that are unknown to the Glyphs file, it will create new glyph slots with the name and unicode value from the CSV file.
@@ -146,7 +147,6 @@ This script compares the CSV file to the existing Glyphs file that is open. If t
 ```python
 # Import modules needed to run script
 import os, csv, GlyphsApp
-# Import `csv` module
 
 # Retrieve current working directory (`cwd`)
 cwd = os.getcwd()
