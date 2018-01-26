@@ -13,7 +13,7 @@ cwd = os.getcwd()
 cwd
 
 # Change directory to location of EPS folder
-os.chdir("~/Downloads/SE-Pictogram-Maintenance-0.1/EPS/")
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/"))
 
 
 currentDir = os.getcwd()
@@ -58,7 +58,7 @@ def runascript():
 			delay 0.5
 			keystroke "g" using {command down, shift down}
 			delay 0.5
-			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.1/EPS/Import/"
+			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/Import/"
 			delay 2
 			keystroke return
 
