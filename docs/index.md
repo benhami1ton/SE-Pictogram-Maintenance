@@ -1,8 +1,11 @@
 <a name="top"></a>
+Table of Contents
+------------------
 
 ### **[0. Setup](#setup)**
 - [0.1 Install Scripts](#install)
-- [0.2 Helpful Resources](#resources)
+- [0.2 Quick Start](#quickstart)
+- [0.3 Helpful Resources](#resources)
 
 ### **[1. Create Project Directory](#projectdirectory)**
 ### **[2. Export Pictograms from Adobe Illustrator](#illustrator)**
@@ -35,7 +38,18 @@ After the files have been placed, open the Glyphs app and while holding the Opti
 
 [Return to top](#top)
 
-<a name="resources"></a>0.2 Helpful Resources
+<a name="quickstart"></a>0.2 Quick Start
+----------
+To quickly test these files, this GitHub repository has been set up to accomodate downloading the latest release and run directly from the `/Downloads` folder. The content of each script can be copied into and run via the Macro window of the Glyphs app and run without installing them to `~/Library/Application Support/Glyphs/Scripts`. This is not recommended as a long-term solution, however it can provide some initial testing of the project.
+
+1. Download the [latest release](https://github.com/benhami1ton/SE-Pictogram-Maintenance/releases/).
+2. Add EPS files to the `/EPS` folder.
+3. Open Glyphs file.
+4. Copy each script into the Macro window and run, taking care to look for any "Quick Start Instructions" at the top of the code.
+
+[Return to top](#top)
+
+<a name="resources"></a>0.3 Helpful Resources
 ----------
 While this guide should get you through this process, it's always best to have some resources in case specific problems happen.
 
