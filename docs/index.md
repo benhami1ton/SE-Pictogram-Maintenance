@@ -164,7 +164,8 @@ for glyph in Glyphs.font.glyphs:
 	unicodeChecker.append(str(glyph.unicode))
 
 
-# Compare the unicode values in the CSV file to the Glyphs file, if there's a new unicode value then add it to the Glyphs file.
+# Compare the unicode values in the CSV file to the Glyphs file, if there's
+# a new unicode value then add it to the Glyphs file.
 for key, val in newNames.items():
 	if key in unicodeChecker:
 		print(key + ' exists already')
@@ -234,7 +235,8 @@ with open('CSV-FILE-NAME', 'r') as csv_file:
     next(csv_reader)
     GetUpdatedNames()
 
-# Compare the unicode values in the CSV file to the Glyphs file, if the unicode values match, then make the names equal as well.
+# Compare the unicode values in the CSV file to the Glyphs file, if the
+# unicode values match, then make the names equal as well.
 for key, val in newNames.items():
   for glyph in Glyphs.font.glyphs:
 		if glyph.unicode == key:
@@ -331,7 +333,8 @@ def runascript():
 	stdout, stderr = p.communicate(ascript)
 	print (p.returncode, stdout, stderr)
 
-# Loop through selected glyphs, to check if there's a new glyph. If there is, it deletes the paths of the selected glyph, imports the new ones, resizes them to the UPM
+# Loop through selected glyphs, to check if there's a new glyph. If there is, it deletes
+# the paths of the selected glyph, imports the new ones, resizes them to the UPM
 for thisLayer in myLayers:
     thisEPSfile = "%s.eps" % (thisLayer.parent.name)
     if os.path.exists(thisEPSfile):
@@ -400,7 +403,8 @@ def moveToCompletedDir():
 	print "%s Moved into Completed directory." % thisLayer.parent.name
 
 
-# Loop through selected glyphs, to check if there's a new glyph. If there is, it deletes the paths of the selected glyph, imports the new ones, resizes them to the UPM
+# Loop through selected glyphs, to check if there's a new glyph. If there is, it deletes
+# the paths of the selected glyph, imports the new ones, resizes them to the UPM.
 for thisLayer in myLayers:
     thisEPSfile = "%s.eps" % (thisLayer.parent.name)
     if os.path.exists(thisEPSfile):
