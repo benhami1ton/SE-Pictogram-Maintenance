@@ -1,33 +1,33 @@
 <a name="top"></a>
 
 ### **[0. Setup](#setup)**
-- [0.1 Install Scripts](#setup)
-- [0.2 Helpful Resources](#setup)
+- [0.1 Install Scripts](#install)
+- [0.2 Helpful Resources](#resources)
 
-### **[1. Create Project Directory](#setup)**
-### **[2. Export Pictograms from Adobe Illustrator](#setup)**
-- [2.1 Exporting EPS](#setup)
+### **[1. Create Project Directory](#projectdirectory)**
+### **[2. Export Pictograms from Adobe Illustrator](#illustrator)**
+- [2.1 Exporting EPS](#EPSfiles)
 
-### **[3. Prepare Pictogram CSV File](#setup)**
-- [3.1 Convert Spreadsheet to CSV](#setup)
+### **[3. Prepare Pictogram CSV File](#prepCSV)**
+- [3.1 Convert Spreadsheet to CSV](#createCSV)
 
-### **[4. Working With Glyphs](#setup)**
-- [4.1 Create Working Glyphs Document](#setup)
-- [4.2 Create new glyph slots using the CSV file](#setup)
-- [4.3 Update the names of all glyphs using the CSV file](#setup)
-- [4.4 Import the EPS outlines to their corresponding glyph](#setup)
-- [4.5 Resize the glyphs that are not 1024 units](#setup)
-- [4.6 Generate OTF ligature code](#setup)
-- [4.7 Create HTML guide for reference](#setup)
+### **[4. Working With Glyphs](#glyphsapp)**
+- [4.1 Create Working Glyphs Document](#saveAs)
+- [4.2 Create new glyph slots using the CSV file](#addglyphs)
+- [4.3 Update the names of all glyphs using the CSV file](#newnames)
+- [4.4 Import the EPS outlines to their corresponding glyph](#importoutlines)
+- [4.5 Resize the glyphs that are not 1024 units](#resize)
+- [4.6 Generate OTF ligature code](#OT)
+- [4.7 Export font files](#export)
+- [4.8 Create HTML guide for reference](#htmlguide)
 
-### **[5. Export Pictograms from Adobe Illustrator](#setup)**
 
 
 [Return to top](#top)
 
 # <a name="setup"></a>0. Setup
 
-0.1 Install Scripts
+<a name="install"></a>0.1 Install Scripts
 ----------
 The bulk of the automation work is handled by Python scripts that are placed within Glyphs, and can be accessed from the menu bar when Glyphs is running. To install these, place the contents of the `Glyphs Scripts` folder into `~/Library/Application Support/Glyphs/Scripts`. The scripts can be kept in a deeper folder for cleaner organization, or each file can be placed in the Scripts folder individually.
 
@@ -35,7 +35,7 @@ After the files have been placed, open the Glyphs app and while holding the Opti
 
 [Return to top](#top)
 
-0.2 Helpful Resources
+<a name="resources"></a>0.2 Helpful Resources
 ----------
 While this guide should get you through this process, it's always best to have some resources in case specific problems happen.
 
@@ -55,7 +55,7 @@ One of the primary forums for the type design community, Type Drawers has a lot 
 
 <hr>
 
-# 1. Create Project Directory
+# <a name="projectdirectory"></a>1. Create Project Directory
 The location of your stored files is crucial to the success of using these tools, because many of the scripts reference exact locations on your computer. Familiarize yourself with how your Mac files are stored, and choose a place to store the project files. This can be anywhere on your computer, but the folders within your project folder must resemble this outline:
 
 ```
@@ -70,7 +70,7 @@ The `EPS > Import > Completed` tree is the most important in this step, because 
 
 [Return to top](#top)
 
-# 2. Export Pictograms from Adobe Illustrator
+# 2. <a name="illustrator"></a>Export Pictograms from Adobe Illustrator
 The first major step will be to prepare all of the icons to be imported into a font design software. This includes working with each icon and manipulating it in Illustrator until it is ready for export as an EPS file to be brought into Glyphs. *It is important to note that the name of the exported file must match exactly to the names that will be listed in the CSV file used later.*
 
 The
@@ -82,11 +82,11 @@ The f
 
 [Return to top](#top)
 
-# 3. Prepare Pictogram CSV File
+# 3. <a name="prepCSV"></a>Prepare Pictogram CSV File
 
 An important tool that will be reference in the beginning is the spreadsheet and comma separated values (CSV) file that will hold the Unicode value, the old name, and new name of the pictogram. Currently this file also contains images of the pictograms, and while the images do not need to be placed in the cells, those columns need to remain. Otherwise the scripts will pull information from the wrong columns.
 
-### Convert Spreadsheet to CSV
+### <a name="createCSV"></a>Convert Spreadsheet to CSV
 1. Remove any blank columns before the Unicode column, which must be the first column.
 2. Remove any blank columns after the last Pictogram Image column, which must be the last column.
 3. It is okay to have empty rows at the bottom or throughout the document.
