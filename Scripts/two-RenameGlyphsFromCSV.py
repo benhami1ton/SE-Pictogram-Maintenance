@@ -1,7 +1,7 @@
 #MenuTitle: 1. Add New Glyphs From CSV...
 # -*- coding: utf-8 -*-
 __doc__="""
-References CSV to match unicode values to Glyphs app. If missing from Glyphs, new glyph objects are added with missing unicode values.
+References CSV to match unicode values to Glyphs app. If there's a match, update name to most recent name.
 
 QUICK START: Double check the path to the CSV file (line 15) and the name of the CSV file (line 33).
 """
@@ -11,7 +11,7 @@ import os, csv, GlyphsApp
 # Retrieve current working directory (`cwd`)
 cwd = os.getcwd()
 
-# Change directory to location of CSV file
+# Change directory
 os.chdir("~/Downloads/SE-Pictogram-Maintenance-0.1/CSV/")
 
 # List all files and directories in current directory
@@ -36,20 +36,12 @@ with open('SE-Pictogram-Maintenance-0.1.csv', 'r') as csv_file:
     next(csv_reader)
     GetUpdatedNames()
 
-# Create list of Unicode values already present in Glyphs App
-unicodeChecker = []
-for glyph in Glyphs.font.glyphs:
-	unicodeChecker.append(str(glyph.unicode))
-
-
-# Compare the unicode values in the CSV file to the Glyphs file, if there's
-# a new unicode value then add it to the Glyphs file.
+# Compare the unicode values in the CSV file to the Glyphs file, if the
+# unicode values match, then make the names equal as well.
 for key, val in newNames.items():
-	if key in unicodeChecker:
-		print(key + ' exists already')
-	else:
-		newGlyph = Glyphs.font.glyphs['E700'].copy()
-		newGlyph.name = val
-		newGlyph.unicode = key
-		Font.glyphs.append(newGlyph)
-		print(key + " doesn't exist already, new glyph made")
+  for glyph in Glyphs.font.glyphs:
+		if glyph.unicode == key:
+			glyph.name = val
+			print(str(glyph.unicode) + ' has become ' + str(glyph.name))
+		else:
+			print(str(glyph.unicode) + ' is unchanged')
