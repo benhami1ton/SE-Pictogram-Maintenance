@@ -380,7 +380,7 @@ The `runascript()` function is a string of AppleScript code that will use the ke
 
 <a name="resize"></a>4.5 Resize the glyphs that are not 1024 units
 -----------------------
-Select only the glyphs with a unicode value of `E700` or higher, then run `Resize Icons to Full Width...`
+Select only the glyphs with a unicode value of `E700` or higher, then run `Resize Pictograms to Full Width...`
 
 ### What does this script do?
 This script calculates the size of each pictogram and scales it to the full width of 1024 units, which is the UPM of the font. This will ensure that no matter the size of the original icon, it will match the others and allow for reliable placement of the icon along the baseline.
