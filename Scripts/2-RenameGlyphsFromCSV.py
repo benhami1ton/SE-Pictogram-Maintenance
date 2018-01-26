@@ -1,9 +1,9 @@
-#MenuTitle: 1. Add New Glyphs From CSV...
+#MenuTitle: 2. Rename Glyphs from Pictogram CSV...
 # -*- coding: utf-8 -*-
 __doc__="""
 References CSV to match unicode values to Glyphs app. If there's a match, update name to most recent name.
 
-QUICK START: Double check the path to the CSV file (line 15) and the name of the CSV file (line 33).
+QUICK START: Double check the path to the CSV file (line 15) and the name of the CSV file (line 33). No need to select any glyphs when runnign this script.
 """
 # Import modules needed to run script
 import os, csv, GlyphsApp

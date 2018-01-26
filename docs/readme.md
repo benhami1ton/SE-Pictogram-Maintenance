@@ -138,7 +138,7 @@ Save the most recent Glyphs app file as a new document for the purposes of this 
 
 <a name="addglyphs"></a>4.2 Create new glyph slots, using the CSV file
 -----------------------
-Using the first script in the Scripts menu bar, run `Add New Glyphs From CSV...`. No Glyphs need to be selected to run this script.
+Using the first script in the Scripts menu bar, run `Add New Glyphs From Pictogram CSV...`. No Glyphs need to be selected to run this script.
 
 ### What does this script do?
 This script compares the CSV file to the existing Glyphs file that is open. If there are new entries with Unicode values that are unknown to the Glyphs file, it will create new glyph slots with the name and unicode value from the CSV file.
@@ -283,7 +283,7 @@ with open('CSV-FILE-NAME.csv', 'r') as csv_file:
 -----------------------
 With all the glyphs in your Glyphs App file now containing the correct unicode and name values, we can import the EPS outlines of the pictograms.
 
-With all the glyphs in the file selected run `Import New Outlines...`.
+With all the glyphs in the file selected run `Import New EPS Outlines...`.
 ### What does this script do?
 This script checks the EPS folder to see if there are files that match the names of pictograms in the Glyphs App file. If there are, it will remove any existing paths or objects in that glyph, in preparation for importing the new paths and objects. It will then move the EPS files that do match into an `Import` folder. Then it will open the `Import > Outlines...` menu item, go to the `Import` folder, and allow you to select all files and open them.
 ### What's in this script?
