@@ -111,13 +111,13 @@ In this Section, we will:
 [Return to top](#top)
 
 
-4.1 Create Working Glyphs Document
+<a name="saveAs"></a>4.1 Create Working Glyphs Document
 -----------------------
 Save the most recent Glyphs app file as a new document for the purposes of this update. This can be saved for future updates, but it's important to save new versions of this file to prevent overwriting if mistakes occur.
 
 [Return to top](#top)
 
-4.2 Create new glyph slots, using the CSV file
+<a name="addglyphs"></a>4.2 Create new glyph slots, using the CSV file
 -----------------------
 Using the first script in the Scripts menu bar, run `Add New Glyphs Based on CSV...`. No Glyphs need to be selected to run this script.
 
@@ -195,7 +195,7 @@ This script uses the line of code `newGlyph = Glyphs.font.glyphs['E700'].copy()`
 
 [Return to top](#top)
 
-4.3 Update the names of all glyphs, using the CSV file
+<a name="newnames"></a>4.3 Update the names of all glyphs, using the CSV file
 -----------------------
 Using the first script in the Scripts menu bar, run `Rename Glyphs from Pictogram CSV...`. No Glyphs need to be selected to run this script.
 ### What does this script do?
@@ -259,7 +259,7 @@ with open('CSV-FILE-NAME.csv', 'r') as csv_file:
 
 [Return to top](#top)
 
-4.4 Import the EPS outlines to their corresponding glyph
+<a name="importoutlines"></a>4.4 Import the EPS outlines to their corresponding glyph
 -----------------------
 With all the glyphs in your Glyphs App file now containing the correct unicode and name values, we can import the EPS outlines of the pictograms.
 
@@ -357,7 +357,7 @@ The `runascript()` function is a string of AppleScript code that will use the ke
 
 [Return to top](#top)
 
-4.5 Resize the glyphs that are not 1024 units
+<a name="resize"></a>4.5 Resize the glyphs that are not 1024 units
 -----------------------
 Select only the glyphs with a unicode value of `E700` or higher, then run `Resize Icons to Full Width...`
 
@@ -422,7 +422,7 @@ When Transforming glyphs in this way, it's helpful to skim through the icons aft
 
 [Return to top](#top)
 
-4.6 Generate OTF ligature code
+<a name="OT"></a>4.6 Generate OTF ligature code
 -----------------------
 ### What does this script do?
 This script takes selected glyphs and converts their names to the OTF code needed to substitute the individual letters into the specific Pictogram. After creating the needed code, it copies the data
@@ -457,7 +457,7 @@ if not setClipboard(clipboardText):
 
 [Return to top](#top)
 
-4.7 Export Font files
+<a name="export"></a>4.7 Export Font files
 -----------------------
 Using standard methods in Glyphs, export the project to all major font versions.
 
@@ -478,7 +478,7 @@ The names of these files will be the same as the name used in the Font Info menu
 
 [Return to top](#top)
 
-4.7 Create HTML guide for reference
+<a name="htmlguide"></a>4.8 Create HTML guide for reference
 -----------------------
 Select all the Pictograms in the project and run the script `Create HTML Guide from Selected Glyphs...`
 
