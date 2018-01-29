@@ -374,7 +374,7 @@ os.chdir("/Users/YourUsername/Location/Of/Project/Folder/EPS/")
 
 The `runascript()` function is a string of AppleScript code that will use the keyboard shortcut `Command + I` to open the Import Outlines... menu item. This must be assigned in System Preferences, under Keyboard Settings, and in the Shortcuts tab. The shortcut must be listed exactly as `File->Import->Outlines...` to access the menu item properly. Below is the settings for that shortcut::
 
-[System Preferences > Keyboard > Shortcuts](https://i.imgur.com/Wa5HFvt.png "System Preferences > Keyboard > Shortcuts")
+! [System Preferences > Keyboard > Shortcuts](https://i.imgur.com/Wa5HFvt.png "System Preferences > Keyboard > Shortcuts")
 
 `runascript()` is a part of this script that is not crucial to its success. If there are any errors with running AppleScript within Python, this script should still remove the paths of each glyph and you can manually Import Outlines, choose all the EPS files, and Glyphs will bring them into their respective slots.
 
