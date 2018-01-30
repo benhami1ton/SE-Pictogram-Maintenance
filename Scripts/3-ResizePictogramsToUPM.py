@@ -14,6 +14,11 @@ currentDir = os.getcwd()
 completedDir = "Completed"
 thisEPSnewPath = ""
 
+for myFont in Glyphs.fonts:
+    for myGlyph in myFont.glyphs:
+        if myGlyph.category == "Private Use":
+        	PUAglyphs.append(str(myGlyph.name))
+
 myLayers = Glyphs.font.selectedLayers # current layer
 
 def scaleToUPM():

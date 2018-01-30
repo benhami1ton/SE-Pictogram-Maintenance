@@ -138,24 +138,24 @@ Save the most recent Glyphs app file as a new document for the purposes of this 
 
 <a name="addglyphs"></a>4.2 Create new glyph slots, using the CSV file
 -----------------------
-Using the first script in the Scripts menu bar, run `Add New Glyphs From Pictogram CSV...`. No Glyphs need to be selected to run this script.
+Using the first script in the Scripts menu bar, run `1. Add/Update Glyphs From Pictogram CSV...`. No Glyphs need to be selected to run this script.
 
 ### What does this script do?
-This script compares the CSV file to the existing Glyphs file that is open. If there are new entries with Unicode values that are unknown to the Glyphs file, it will create new glyph slots with the name and unicode value from the CSV file.
+This script uses the exported CSV file to check 1) if a pictogram exists and 2) what the new name should be. It first compares any existing unicode values to the ones in the CSV list and makes new glyph slots if they don't already exist. Then it checks all the names and if they differ from the CSV, the names are updated.
 
 ### What's in this script?
 ```python
 # Import modules needed to run script
 import os, csv, GlyphsApp
 
+# Clears Macro panel printout. Comment this out to keep each iteration of script run.
+Glyphs.clearLog()
+
 # Retrieve current working directory (`cwd`)
 cwd = os.getcwd()
 
 # Change directory to location of CSV file
-os.chdir("/Users/YourUsername/Location/Of/Folder/Containing/CSVfile/")
-
-# List all files and directories in current directory
-os.listdir('.')
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/CSV/"))
 
 # Create a dictionary to store the new names
 newNames = {}
@@ -165,12 +165,9 @@ def GetUpdatedNames():
     for line in csv_reader:
         if line[-2]:
             newNames[line[0]] = line[-2]
-            print(line[1] + ' has been renamed to ' + line[-2])
-        else:
-            print(line[0] + ' was not changed.')
 
 # Open Pictogram CSV file and check for new entries
-with open('CSV-FILE-NAME.csv', 'r') as csv_file:
+with open('SE-Pictogram-Maintenance-0.3.csv', 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
     # Skip header information
     next(csv_reader)
@@ -181,19 +178,47 @@ unicodeChecker = []
 for glyph in Glyphs.font.glyphs:
 	unicodeChecker.append(str(glyph.unicode))
 
+# Compare the unicode values in the CSV file to the Glyphs file, if there's
+# a new unicode value then add it to the Glyphs file. Sets the
+# newPictograms checker variable to true.
+def createNewPictograms():
+	newPictograms = False
+	for key, val in newNames.items():
+		if key in unicodeChecker:
+			pass
+		else:
+			newGlyph = Glyphs.font.glyphs['E700'].copy()
+			newGlyph.name = val
+			newGlyph.setUnicode_(key)
+			Font.glyphs.append(newGlyph)
+			newPictograms = True
+			print(key + " doesn't exist already, new glyph made.")
+	# Prints to inform you that nothing changed.
+	if newPictograms == False:
+		print("No new pictograms were added.")
+
+
 
 # Compare the unicode values in the CSV file to the Glyphs file, if there's
-# a new unicode value then add it to the Glyphs file.
-for key, val in newNames.items():
-	if key in unicodeChecker:
-		print(key + ' exists already')
-	else:
-		newGlyph = Glyphs.font.glyphs['E700'].copy()
-		newGlyph.name = val
-		newGlyph.unicode = key
-		Font.glyphs.append(newGlyph)
-		print(key + " doesn't exist already, new glyph made")
+# an updated name, change glyphs name. Sets the nameChanged
+# checker variable to true.
+def renameExistingPictograms():
+	nameChanged = False
+	for key, val in newNames.items():
+		for glyph in Glyphs.font.glyphs:
+			if glyph.unicode == key:
+				if glyph.name != val:
+					glyph.name = val
+					nameChanged = True
+					print(str(glyph.unicode) + ' has become ' + str(glyph.name))
 
+    # Prints to inform you that nothing changed.
+	if nameChanged == False:
+		print("No names were altered.")
+
+createNewPictograms()
+print("\n" + "------------------------------" + "\n")
+renameExistingPictograms()
 ```
 
 ### Important notes before running script:

@@ -3,7 +3,7 @@
 __doc__="""
 References CSV to match unicode values to Glyphs app. If missing from Glyphs, new glyph objects are added with missing unicode values. If names differ from CSV list, names are updated.
 
-QUICK START: Double check the path to the CSV file (line 15) and the name of the CSV file (line 33). No need to select any glyphs when running this script.
+QUICK START: Double check the path to the CSV file (line 18) and the name of the CSV file (line 30). No need to select any glyphs when running this script.
 """
 # Import modules needed to run script
 import os, csv, GlyphsApp
@@ -16,9 +16,6 @@ cwd = os.getcwd()
 
 # Change directory to location of CSV file
 os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/CSV/"))
-
-# List all files and directories in current directory
-os.listdir('.')
 
 # Create a dictionary to store the new names
 newNames = {}
