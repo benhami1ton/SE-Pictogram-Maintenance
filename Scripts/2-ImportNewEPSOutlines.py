@@ -54,7 +54,7 @@ def removeGlyphPaths():
 def runascript():
 	ascript = """
 		tell application "System Events"
-			keystroke "i" using command down
+			keystroke "i" using {command down, shift down}
 			delay 0.5
 			keystroke "g" using {command down, shift down}
 			delay 0.5

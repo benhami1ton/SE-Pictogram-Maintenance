@@ -235,82 +235,20 @@ with open('CSV-FILE-NAME.csv', 'r') as csv_file:
 ```
 Also, if the spreadsheet and CSV have columns added from subsequent updates for new versions, the script can handle additional columns by using a `-2` index value in the function `GetUpdatedNames()`, which searches for the "second-to-last" column in the CSV file. As long as the Pictogram spreadsheet and CSV include icon images/examples, use an index of `-2` to find the names, otherwise use an index of `-1` which is equivalent to the "last column".
 
-This script uses the line of code `newGlyph = Glyphs.font.glyphs['E700'].copy()` to duplicate the `TestSquare` glyph as a template for all new glyphs. It will keep a 1024x1024 square until Step 4.4 when it is removed.
+This script uses the line of code `newGlyph = Glyphs.font.glyphs['E700'].copy()` to duplicate the `TestSquare` glyph as a template for all new glyphs. It will keep a 1024x1024 square until Step 4.3 when it is removed.
+
+### Other notes:
+There is a line in the script that clears the console before running the script, just to keep things clean and understandable. If you don't this, and instead want to keep all notes in the console, comment out the line `Glyphs.clearLog()`.
 
 [Return to top](#top)
 
-<a name="newnames"></a>4.3 Update the names of all glyphs, using the CSV file
------------------------
-Using the first script in the Scripts menu bar, run `Rename Glyphs from Pictogram CSV...`. No Glyphs need to be selected to run this script.
-### What does this script do?
-This script, like in step 4.2, systematically checks the Glyphs file for unicode values that match the CSV file being used. If the unicode values match, it will rename the glyph's name to match what's in the CSV file.
-### What's in this script?
-```python
-# Import modules needed to run script
-import os, csv, GlyphsApp
-
-# Retrieve current working directory (`cwd`)
-cwd = os.getcwd()
-cwd
-
-# Change directory
-os.chdir("/Users/YourUsername/Location/Of/Folder/Containing/CSVfile/")
-
-# List all files and directories in current directory
-os.listdir('.')
-
-# Create a dictionary to store the new names
-newNames = {}
-
-# Assign each unicode as the key and the new name as the value
-def GetUpdatedNames():
-    for line in csv_reader:
-        if line[-2]:
-            newNames[line[0]] = line[-2]
-            print(line[1] + ' has been renamed to ' + line[-2])
-        else:
-            print(line[0] + ' was not changed.')
-
-# Open Pictogram CSV file and check for new entries
-with open('CSV-FILE-NAME', 'r') as csv_file:
-    csv_reader = csv.reader(csv_file)
-    # Skip header information
-    next(csv_reader)
-    GetUpdatedNames()
-
-# Compare the unicode values in the CSV file to the Glyphs file, if the
-# unicode values match, then make the names equal as well.
-for key, val in newNames.items():
-  for glyph in Glyphs.font.glyphs:
-		if glyph.unicode == key:
-			glyph.name = val
-			print(str(glyph.unicode) + ' has become ' + str(glyph.name))
-		else:
-			print(str(glyph.unicode) + ' is unchanged')
-
-```
-### Important notes before running script:
-Like in step 4.2, you must update this line of code to match the location of the CSV file. Be careful to note backslashes and your Mac's username, and it may be necessary to begin the path with `~/`:
-```python
-# Change directory to location of CSV file
-os.chdir("/Users/YourUsername/Location/Of/Folder/Containing/CSVfile/")
-```
-You must also input the name of the CSV file, including the `.csv` file extension into this snippet:
-```python
-# Open Pictogram CSV file and check for new entries
-with open('CSV-FILE-NAME.csv', 'r') as csv_file:
-    csv_reader = csv.reader(csv_file)
-```
-
-[Return to top](#top)
-
-<a name="importoutlines"></a>4.4 Import the EPS outlines to their corresponding glyph
+<a name="importoutlines"></a>4.3 Import the EPS outlines to their corresponding glyph
 -----------------------
 With all the glyphs in your Glyphs App file now containing the correct unicode and name values, we can import the EPS outlines of the pictograms.
 
 With all the glyphs in the file selected run `Import New EPS Outlines...`.
 ### What does this script do?
-This script checks the EPS folder to see if there are files that match the names of pictograms in the Glyphs App file. If there are, it will remove any existing paths or objects in that glyph, in preparation for importing the new paths and objects. It will then move the EPS files that do match into an `Import` folder. Then it will open the `Import > Outlines...` menu item, go to the `Import` folder, and allow you to select all files and open them.
+This script checks the EPS folder to see if there are files that match the names of pictograms in the Glyphs App. If there are, it will remove any existing paths or objects in that glyph, in preparation for importing the new paths and objects. It will then move the EPS files that do match into an `Import` folder. Then it will open the `Import > Outlines...` menu item, go to the `Import` folder, and allow you to select all files and open them.
 ### What's in this script?
 ```Python
 import os, errno, shutil, GlyphsApp, subprocess, time
