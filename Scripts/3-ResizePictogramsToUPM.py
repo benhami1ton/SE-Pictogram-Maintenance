@@ -8,7 +8,7 @@ QUICK START: Double check the path to the EPS files (line 11). Only select/resiz
 import os, GlyphsApp, shutil
 
 # Change directory to location of Import folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/Import/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/Import/"))
 
 currentDir = os.getcwd()
 completedDir = "Completed"
