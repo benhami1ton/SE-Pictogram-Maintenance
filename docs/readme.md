@@ -145,7 +145,7 @@ This script uses the exported CSV file to check 1) if a pictogram exists and 2) 
 
 ### What's in this script?
 ```python
-# Import modules needed to run script
+Import modules needed to run script
 import os, csv, GlyphsApp
 
 # Clears Macro panel printout. Comment this out to keep each iteration of script run.
@@ -162,40 +162,40 @@ newNames = {}
 
 # Assign each unicode as the key and the new name as the value
 def GetUpdatedNames():
-    for line in csv_reader:
-        if line[-2]:
-            newNames[line[0]] = line[-2]
+   for line in csv_reader:
+       if line[-2]:
+           newNames[line[0]] = line[-2]
 
 # Open Pictogram CSV file and check for new entries
 with open('SE-Pictogram-Maintenance-0.3.csv', 'r') as csv_file:
-    csv_reader = csv.reader(csv_file)
-    # Skip header information
-    next(csv_reader)
-    GetUpdatedNames()
+   csv_reader = csv.reader(csv_file)
+   # Skip header information
+   next(csv_reader)
+   GetUpdatedNames()
 
 # Create list of Unicode values already present in Glyphs App
 unicodeChecker = []
 for glyph in Glyphs.font.glyphs:
-	unicodeChecker.append(str(glyph.unicode))
+ unicodeChecker.append(str(glyph.unicode))
 
 # Compare the unicode values in the CSV file to the Glyphs file, if there's
 # a new unicode value then add it to the Glyphs file. Sets the
 # newPictograms checker variable to true.
 def createNewPictograms():
-	newPictograms = False
-	for key, val in newNames.items():
-		if key in unicodeChecker:
-			pass
-		else:
-			newGlyph = Glyphs.font.glyphs['E700'].copy()
-			newGlyph.name = val
-			newGlyph.setUnicode_(key)
-			Font.glyphs.append(newGlyph)
-			newPictograms = True
-			print(key + " doesn't exist already, new glyph made.")
-	# Prints to inform you that nothing changed.
-	if newPictograms == False:
-		print("No new pictograms were added.")
+ newPictograms = False
+ for key, val in newNames.items():
+   if key in unicodeChecker:
+     pass
+   else:
+     newGlyph = Glyphs.font.glyphs['E700'].copy()
+     newGlyph.name = val
+     newGlyph.setUnicode_(key)
+     Font.glyphs.append(newGlyph)
+     newPictograms = True
+     print(key + " doesn't exist already, new glyph made.")
+ # Prints to inform you that nothing changed.
+ if newPictograms == False:
+   print("No new pictograms were added.")
 
 
 
@@ -203,18 +203,18 @@ def createNewPictograms():
 # an updated name, change glyphs name. Sets the nameChanged
 # checker variable to true.
 def renameExistingPictograms():
-	nameChanged = False
-	for key, val in newNames.items():
-		for glyph in Glyphs.font.glyphs:
-			if glyph.unicode == key:
-				if glyph.name != val:
-					glyph.name = val
-					nameChanged = True
-					print(str(glyph.unicode) + ' has become ' + str(glyph.name))
+ nameChanged = False
+ for key, val in newNames.items():
+   for glyph in Glyphs.font.glyphs:
+     if glyph.unicode == key:
+       if glyph.name != val:
+         glyph.name = val
+         nameChanged = True
+         print(str(glyph.unicode) + ' has become ' + str(glyph.name))
 
-    # Prints to inform you that nothing changed.
-	if nameChanged == False:
-		print("No names were altered.")
+   # Prints to inform you that nothing changed.
+ if nameChanged == False:
+   print("No names were altered.")
 
 createNewPictograms()
 print("\n" + "------------------------------" + "\n")
@@ -259,7 +259,7 @@ cwd = os.getcwd()
 cwd
 
 # Change directory to location of EPS folder
-os.chdir("/Users/YourUsername/Location/Of/Project/Folder/EPS/")
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/"))
 
 
 currentDir = os.getcwd()
@@ -300,11 +300,11 @@ def removeGlyphPaths():
 def runascript():
 	ascript = """
 		tell application "System Events"
-			keystroke "i" using command down
+			keystroke "i" using {command down, shift down}
 			delay 0.5
 			keystroke "g" using {command down, shift down}
 			delay 0.5
-			keystroke "~/Documents/Professional/Schneider Electric/17EC001_IconFont_MaintenanceAndGuide/EPS/Import/"
+			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/Import/"
 			delay 2
 			keystroke return
 
@@ -348,7 +348,7 @@ The `runascript()` function is a string of AppleScript code that will use the ke
 Select only the glyphs with a unicode value of `E700` or higher, then run `Resize Pictograms to Full Width...`
 
 ### What does this script do?
-This script calculates the size of each pictogram and scales it to the full width of 1024 units, which is the UPM of the font. This will ensure that no matter the size of the original icon, it will match the others and allow for reliable placement of the icon along the baseline.
+This script calculates the size of each pictogram and scales it to the  width of 768 units, which is is 75% UPM of the font. This will ensure that no matter the size of the original icon, it will match the others and allow for reliable placement of the icon along the baseline.
 
 This script also moves the EPS files that are currently in the `Import` folder into the `Completed` folder. This will help you know which pictograms have been fully manipulated. In order to see which pictograms did not import, the script will move the successful ones out of sight, leaving only the potentially problematic files.
 ### What's in this script?
@@ -356,25 +356,71 @@ This script also moves the EPS files that are currently in the `Import` folder i
 import os, GlyphsApp, shutil
 
 # Change directory to location of Import folder
-os.chdir("/Users/YourUsername/Location/Of/Project/Folder/EPS/Import/")
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/Import/"))
 
 currentDir = os.getcwd()
 completedDir = "Completed"
 thisEPSnewPath = ""
+PUAglyphs = []
+xMax = []
+yMax = []
+sameMax = []
 
-myLayers = Glyphs.font.selectedLayers # current layer
+for myFont in Glyphs.fonts:
+    for myGlyph in myFont.glyphs:
+        if myGlyph.category == "Private Use":
+        	PUAglyphs.append(myGlyph)
+    print "PUAglyphs collected."
 
-def scaleToUPM():
-	for thisLayer in myLayers:
-		print (thisLayer.parent.name + ' scaled by factor of ' + str(thisLayer.width / thisLayer.bounds.size.width))
-		thisLayer.applyTransform([
-                        		thisLayer.width / thisLayer.bounds.size.width, # x scale factor
-                        		0.0, # x skew factor
-                        		0.0, # y skew factor
-                        		thisLayer.width / thisLayer.bounds.size.width, # y scale factor
-                        		0.0, # x position
-                        		0.0  # y position
-                        	])
+for eachGlyph in PUAglyphs:
+	for layer in eachGlyph.layers:
+		if layer.bounds.size.width > layer.bounds.size.height:
+			xMax.append(eachGlyph)
+			# print (eachGlyph.name + " is wide.")
+		if layer.bounds.size.width < layer.bounds.size.height:
+			yMax.append(eachGlyph)
+			# print (eachGlyph.name + " is tall.")
+		if layer.bounds.size.width == layer.bounds.size.height:
+			sameMax.append(eachGlyph)
+			# print (eachGlyph.name + " is square.")
+		if eachGlyph.name in xMax or yMax or sameMax:
+			pass
+		else:
+			print (eachGlyph.name + "-----ERROR-----")
+
+def scaleToWidth():
+	# These two lists can be combined to simplify the loop.
+	widthPriority = xMax + sameMax
+
+	for glyph in widthPriority:
+		for layer in glyph.layers:
+			print (layer.parent.name + " | " + layer.name + ' scaled by factor of ' + str((1024 * 0.75) / layer.bounds.size.width))
+			xOrigin = layer.bounds.origin.x
+			yOrigin = layer.bounds.origin.y
+			layer.applyTransform([
+                        			(1024 * 0.75) / layer.bounds.size.width, # x scale factor
+                        			0.0, # x skew factor
+                        			0.0, # y skew factor
+                        			(1024 * 0.75) / layer.bounds.size.width, # y scale factor
+                        			0, # x position
+                        			0  # y position
+                        		])
+def scaleToHeight():
+	for glyph in yMax:
+		for layer in glyph.layers:
+			print (layer.parent.name + " | " + layer.name + ' scaled by factor of ' + str((1024 * 0.75) / layer.bounds.size.height))
+			xOrigin = layer.bounds.origin.x
+			yOrigin = layer.bounds.origin.y
+			layer.applyTransform([
+                        			(1024 * 0.75) / layer.bounds.size.height, # x scale factor
+                        			0.0, # x skew factor
+                        			0.0, # y skew factor
+                        			(1024 * 0.75) / layer.bounds.size.height, # y scale factor
+                        			0, # x position
+                        			0  # y position
+
+                        		])
+
 
 # Creates new directory for the selected glyph, so Glyphs.app can find and grab it
 def moveToCompletedDir():
@@ -383,20 +429,19 @@ def moveToCompletedDir():
 	if not os.path.exists(completedDir):
 		os.makedirs(completedDir)
 	shutil.move(thisImportEPSoldPath, thisImportEPSnewPath)
-	print "%s Moved into Completed directory." % thisLayer.parent.name
+	print "%s moved into Completed directory." % thisGlyph.name
 
 
 # Loop through selected glyphs, to check if there's a new glyph. If there is, it deletes
 # the paths of the selected glyph, imports the new ones, resizes them to the UPM.
-for thisLayer in myLayers:
-    thisEPSfile = "%s.eps" % (thisLayer.parent.name)
+for thisGlyph in PUAglyphs:
+    thisEPSfile = "%s.eps" % (thisGlyph.name)
     if os.path.exists(thisEPSfile):
     	moveToCompletedDir()
-    	scaleToUPM()
-#     	print (thisLayer.parent.name + ' was updated. \n')
-    else:
-    	print (thisLayer.parent.name + ' was not affected. \n')
+    	print (thisGlyph.name + ' was updated. \n')
 
+scaleToWidth()
+scaleToHeight()
 ```
 ### Important notes before running script:
 Similar to previous steps, this time you must update this line of code to match the location of the EPS files. Be careful to note backslashes and your Mac's username, and it may be necessary to begin the path with `~/`:
@@ -414,35 +459,39 @@ When Transforming glyphs in this way, it's helpful to skim through the icons aft
 <a name="OT"></a>4.6 Generate OTF ligature code
 -----------------------
 ### What does this script do?
-This script takes selected glyphs and converts their names to the OTF code needed to substitute the individual letters into the specific Pictogram. After creating the needed code, it copies the data
+This script takes any glyph categorized as Private Use and generates a full-word ligature substitution. This is the feature that allows a user to type the name of the pictogram and replace those letterforms with the pictogram. After creating a line of code for each pictogram, it updates the OpenType features panel in the Font Info settings.
 ### What's in this script?
 ```Python
 import GlyphsApp
-from AppKit import *
 
 separator = "\n"
-thisFont = Glyphs.font # frontmost font
-listOfGlyphNames = [ l.parent.name for l in thisFont.selectedLayers ]
-listOfGlyphNames = [ 'sub ' + " ".join(x) + ' by ' + x for x in listOfGlyphNames ]
-clipboardText = separator.join( listOfGlyphNames )
+PUAglyphs = []
+illegals = {" 0 ":" zero ", " 1 ":" one ", " 2 ":" two ", " 3 ":" three ", " 4 ":" four ", " 5 ":" five ", " 6 ":" six ", " 7 ":" seven ", " 8 ":" eight ", " 9 ":" nine ", " - ":" hyphen ", " _ ": " underscore ", " . ":" period "}
 
-def setClipboard( myText ):
-	"""
-	Sets the contents of the clipboard to myText.
-	Returns True if successful, False if unsuccessful.
-	"""
-	try:
-		myClipboard = NSPasteboard.generalPasteboard()
-		myClipboard.declareTypes_owner_( [NSStringPboardType], None )
-		myClipboard.setString_forType_( myText, NSStringPboardType )
-		return True
-	except Exception as e:
-		return False
+for myFont in Glyphs.fonts:
+    for myGlyph in myFont.glyphs:
+        if myGlyph.category == "Private Use":
+        	PUAglyphs.append(str(myGlyph.name))
 
-if not setClipboard(clipboardText):
-	print "Warning: could not set clipboard to %s" % ( clipboardText )
+
+subLines = [ 'sub ' + " ".join(x) + ' by ' + x + ';'for x in PUAglyphs ]
+ligaCode = separator.join( subLines )
+
+for i in xrange(10):
+	for i,j in illegals.iteritems():
+		ligaCode = ligaCode.replace(i, j)
+
+del(font.features['liga'])
+font.features.append(GSFeature('liga', ligaCode))
+font.updateFeatures()
+print ligaCode
 ```
 ### Important notes before running script:
+You must still Update and Compile the Features code in the Font Info panel. These Update the font with changes to the Features code, and Compile the font to binary so that it can be exported.
+
+The script contains a list of special characters that are used in the names of the Pictograms. Right now, this list contains 0-9, periods, hyphens and underscores. These all may be used in names, however any other special characters must be added to the `illegals` dictionary, where the key:value pair is the special character and the name of that special character, respectively.
+
+This code exports in the form of [Adobe'd Feature File Syntax](https://www.adobe.com/devnet/opentype/afdko/topic_feature_file_syntax.html). A great explanation of OpenType features can be found in Tal Leming's [OpenType Cookbook](http://opentypecookbook.com/).
 
 [Return to top](#top)
 
@@ -474,6 +523,41 @@ Select all the Pictograms in the project and run the script `Create HTML Guide f
 ### What does this script do?
 This script creates an HTML page that contains a list of all the Pictograms, with some basic info including the name, icon, and unicode value for reference.
 ### What's in this script?
+```Python
+import os, GlyphsApp
+
+lineBreak = '\n'
+tab = '\t'
+cssIconList = []
+htmlIconList = []
+separator = lineBreak
+
+htmlBeforeCSS = '<!doctype html> ' + lineBreak + '<html lang="en"> ' + lineBreak + '<head> ' + lineBreak + tab + '	<meta charset="utf-8">' + lineBreak + tab + '<title>SE Icon Cheat Sheet</title>' + lineBreak + tab + '<meta name="description" content="SE Icon Cheat Sheet">' + lineBreak + tab + '<!--[if lt IE 9]><script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.js"></script><![endif]-->' + lineBreak + tab + '<style>' + lineBreak + tab + tab + '@font-face {' + lineBreak + tab + 'font-family: "' + Glyphs.font.familyName + '";' + lineBreak + tab + 'src: url("fonts/' + Glyphs.font.familyName + '-Regular.eot"); /* IE9 Compat Modes */' + lineBreak + tab + 'src: url("fonts/' + Glyphs.font.familyName + '-Regular.eot?#iefix") format("embedded-opentype"), /* IE6-IE8 */' + lineBreak + tab + 'url("fonts/' + Glyphs.font.familyName + '-Regular.woff2") format("woff2"), /* Super Modern Browsers */' + lineBreak + tab + 'url("fonts/' + Glyphs.font.familyName + '-Regular.woff") format("woff"), /* Pretty Modern Browsers */' + lineBreak + tab + 'url("fonts/' + Glyphs.font.familyName + '-Regular.ttf")  format("truetype"); /* Safari, Android, iOS */' + lineBreak + '}' + lineBreak + '.se-icons {' + lineBreak + tab + 'font-family: "' + Glyphs.font.familyName + '", Times, sans-serif;' + lineBreak + '}' + lineBreak + '.se-icon-liga {' + lineBreak + tab + 'font-family: "' + Glyphs.font.familyName + '", Times, sans-serif;' + lineBreak + tab + 'font-variant-ligatures: common-ligatures;' + lineBreak + tab + '-moz-font-feature-settings: "liga", "clig";' + lineBreak + tab + '-webkit-font-feature-settings: "liga", "clig";' + lineBreak + tab + 'font-feature-settings: "liga", "clig";' + lineBreak + '}' + lineBreak + 'div.container' + lineBreak + '{' + lineBreak + tab + tab + tab + 'width: 100%;' + lineBreak + tab +  tab + '}' + lineBreak + lineBreak + tab + tab + 'header, footer {' + lineBreak + tab +  tab + tab + 'padding: 1em;' + lineBreak + tab + tab + tab + 'color: white;' + lineBreak + tab + tab + tab + 'background-color: green;' + lineBreak + tab + tab + tab + 'clear: left;' + lineBreak + tab +  tab + tab + 'text-align: center;' + lineBreak + tab + tab + tab + 'font-family: Arial, sans-serif;' + lineBreak + tab + tab + '}' + lineBreak + lineBreak + tab + tab + 'nav ul {' + lineBreak + tab + tab + tab + 'list-style-type: none;' + lineBreak + tab + tab + tab + 'padding: 0;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + 'nav ul a {' + lineBreak + tab + tab + tab + 'text-decoration: none;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + 'div.main-icon-layout {' + lineBreak + tab + tab + tab + 'padding: 1em;' + lineBreak + tab + tab + tab + 'font-family: Arial, sans-serif;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + '.icon-parent {' + lineBreak + tab + tab + tab + 'padding: 0;' + lineBreak + tab + tab + tab + 'margin: 0;' + lineBreak + tab + tab + tab + 'list-style: none;' + lineBreak + tab + tab + tab + 'display: -webkit-box;' + lineBreak + tab + tab + tab + 'display: -moz-box;' + lineBreak + tab + tab + tab + 'display: -ms-flexbox;' + lineBreak + tab + tab + tab + 'display: -webkit-flex;' + lineBreak + tab + tab + tab + 'display: flex;' + lineBreak + tab + tab + tab + 'flex-flow: row wrap;' + lineBreak + tab + tab + tab + '-webkit-flex-flow: row wrap;' + lineBreak + tab + tab + tab + 'justify-content: space-around;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + '.icon-child {' + lineBreak + tab + tab + tab + 'background: #F0F0F0;' + lineBreak + tab + tab + tab + 'padding: 5px;' + lineBreak + tab + tab + tab + 'width: 320px;' + lineBreak + tab + tab + tab + 'height: 200px;' + lineBreak + tab + tab + tab + 'margin-top: 10px;' + lineBreak + tab + tab + tab + 'text-align: center;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + '.iconTitle {' + lineBreak + tab + tab + tab + 'padding-top: 10px;' + lineBreak + tab + tab + tab + 'font-family: Arial, sans-serif;' + lineBreak + tab + tab + tab + 'font-weight: bold;' + lineBreak + tab + tab + tab + 'font-size: 1em;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + '.cheatSheetIcon {' + lineBreak + tab + tab + tab + 'font-size: 100px;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + '.unicodeChar {' + lineBreak + tab + tab + tab + 'font-family: Arial, sans-serif;' + lineBreak + tab + tab + tab + 'color: gray;' + lineBreak + tab + tab + tab + 'padding-top: 15px;' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + '.testDiv {' + lineBreak + tab + tab + tab + 'background: green;' + lineBreak + tab + tab + tab + 'height: 100px;' + lineBreak + tab + tab + tab + 'width: 100px' + lineBreak + tab + tab + '}' + lineBreak + tab + tab + '.testType {' + lineBreak + tab + tab + 'font-size: 100px;' + lineBreak + tab + tab + '}'
+htmlAfterCSS =  lineBreak + tab + tab + '</style>' + lineBreak + '</head>' + lineBreak + '<body>' + lineBreak + tab + '	<div class="container">' + lineBreak + tab + tab + '<header>' + lineBreak + tab + tab + '<h1>Schneider Electric Icon Font</h1>' + lineBreak + tab + tab + '<h6>version 0.2, Nov. 1 2016</h6>' + lineBreak + tab + tab + '</header>' + lineBreak + tab + '<div class="main-icon-layout">' + lineBreak + tab + tab + '<h3>Overview</h3>' + lineBreak + tab + tab + '<p>The primary intent of this icon font is to provide an additional tool for designers and developers to implement branded iconograpy. Using a font has the bonus of browser compatibility as well as a faster workflow when using the SE Icons. </p>' + lineBreak + tab + tab + '<h3>Usage</h3>' + lineBreak + tab + tab + '<p>There are a variety of ways that these icons can be implemented using the font files and CSS. The primary method on the web involves the use of pseudo elements.	By adding the prefix <code>se-</code> to an icon&#8217;s name (no spaces, no punctuation, CamelCase) you have created the class associated with the icon and this class will create a pseudo element when associated with an object. Ex. <code>se-ActionAnnotateClosed</code> </p>' + lineBreak + tab + tab + '<h3>OpenType</h3>' + lineBreak + tab + tab + '<p>When compatible, this font allows OT standard ligatures to replace the name of the icon with the icon itself. After ensuring this feature is enabled in your design software or CSS code, you can simply type the name of the icon and the corresponding image will replace the name. The icon names are case-sensitive and do not contain any spaces or punctuation.</p>' + lineBreak + tab + tab + '<h3>Updates</h3>' + lineBreak + tab + tab + '<p>There are a few relevant Python scripts used for updating and maintaining this font with new icons. These can be accessed <a href="https://github.com/benhami1ton/iconfont-build-update">via GitHub</a></p>' + lineBreak + tab + '</div>' + lineBreak + tab + '<div class="">' + lineBreak + tab +  tab + '<ul class="icon-parent">'
+htmlFooter = lineBreak + tab + tab + '</ul>' + lineBreak + tab + '</div>' + lineBreak + '</div>' + lineBreak + '<script src="js/scripts.js"></script>' + lineBreak + '</body>' + lineBreak + '</html>'
+for myFont in Glyphs.fonts:
+    for myGlyph in myFont.glyphs:
+        if myGlyph.category == "Private Use":
+        	PUAglyphs.append(myGlyph)
+    print "PUAglyphs collected."
+
+for myGlyph in PUAglyphs:
+	myGlyphUnicodeString = str(myGlyph.unicode)
+	cssIconComponent = tab + tab + '.se-' + myGlyph.name + ':before {' + lineBreak + tab + tab + tab + 'content: "\\' + myGlyphUnicodeString.lower() + '";' + lineBreak + tab + tab + '}'
+	cssIconList.append( cssIconComponent )
+
+	htmlIconComponent = tab + tab + tab + tab + '<li class="icon-child">' + lineBreak + tab + tab + tab + tab + tab + '<div class="iconTitle">' + myGlyph.name + '</div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="se-icons cheatSheetIcon se-' + myGlyph.name + '"></div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="unicodeChar"> unicode: <code>' + myGlyph.unicode + '</code></div>' + lineBreak + tab + tab + tab + tab + '</li>' + lineBreak
+	htmlIconList.append( htmlIconComponent )
+
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/"))
+
+file = open("PictogramGuide.html","w")
+
+file.write(str(lineBreak + htmlBeforeCSS + lineBreak + separator.join( cssIconList ) + lineBreak + htmlAfterCSS + separator.join( htmlIconList ) + lineBreak + htmlFooter))
+print ("Guide File Created.")
+```
+
+
 ### Important notes before running script:
 While it is not the most eloquent piece of HTML/CSS code, this is meant to be as self-contained as possible. In this version, you only need to share the `.html` file and `/fonts` folder together.
 
