@@ -72,6 +72,17 @@ One of the primary forums for the type design community, Type Drawers has a lot 
 
 [Return to top](#top)
 
+0.4 Prepare for using Python
+-----------------------
+### Dependencies Needed for Programming in Glyphs
+There are a few packages that you will need to maximize the efficiency of using Python in Glyphs. As I am not a full fledged developer, I fully admit that some of these tools may not be needed in every instance, but it's what I have at my disposal to get these jobs completed.
+#### Python
+I've installed [Python 2.7.14](https://www.python.org/downloads/release/python-2714/) on my Mac OS X 10.13.2. At this point, Glyphs works with Python 2.7.
+#### Vanilla
+Go to Glyphs > Preferences > Addons > Modules and click the Install Modules button. This is often needed when interacting with the Glyphs GUI itself. Not required for all scripts, but some utilize Vanilla to manipulate Glyphs directly, so it's best to install it before starting.
+
+[Return to top](#top)
+
 <hr>
 
 # <a name="projectdirectory"></a>1. Create Project Directory
@@ -119,13 +130,12 @@ An important tool that will be reference in the beginning is the spreadsheet and
 
 In this Section, we will:
 1. Make a copy of an existing Glyphs file
-2. Create new glyph slots, using the CSV file
-3. Update the names of all glyphs, using the CSV file
-4. Import the EPS outlines to their corresponding glyph
-5. Resize the glyphs that are not 1024 units
-6. Generate OTF ligature code
-7. Export Font files
-8. Create HTML guide for reference
+2. Create new glyph slots and pdate the names of all glyphs, using the CSV file
+3. Import the EPS outlines to their corresponding glyph
+4. Resize the glyphs that are not 1024 units
+5. Generate OTF ligature code
+6. Export Font files
+7. Create HTML guide for reference
 
 [Return to top](#top)
 
@@ -155,7 +165,7 @@ Glyphs.clearLog()
 cwd = os.getcwd()
 
 # Change directory to location of CSV file
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/CSV/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/CSV/"))
 
 # Create a dictionary to store the new names
 newNames = {}
@@ -167,7 +177,7 @@ def GetUpdatedNames():
            newNames[line[0]] = line[-2]
 
 # Open Pictogram CSV file and check for new entries
-with open('SE-Pictogram-Maintenance-0.3.csv', 'r') as csv_file:
+with open('SE-Pictogram-Maintenance-0.4.csv', 'r') as csv_file:
    csv_reader = csv.reader(csv_file)
    # Skip header information
    next(csv_reader)
@@ -259,7 +269,7 @@ cwd = os.getcwd()
 cwd
 
 # Change directory to location of EPS folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/"))
 
 
 currentDir = os.getcwd()
@@ -304,7 +314,7 @@ def runascript():
 			delay 0.5
 			keystroke "g" using {command down, shift down}
 			delay 0.5
-			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/Import/"
+			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/Import/"
 			delay 2
 			keystroke return
 
@@ -343,7 +353,7 @@ The `runascript()` function is a string of AppleScript code that will use the ke
 
 [Return to top](#top)
 
-<a name="resize"></a>4.5 Resize the glyphs that are not 1024 units
+<a name="resize"></a>4.4 Resize the glyphs that are not 1024 units
 -----------------------
 Select only the glyphs with a unicode value of `E700` or higher, then run `Resize Pictograms to Full Width...`
 
@@ -356,7 +366,7 @@ This script also moves the EPS files that are currently in the `Import` folder i
 import os, GlyphsApp, shutil
 
 # Change directory to location of Import folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/EPS/Import/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/Import/"))
 
 currentDir = os.getcwd()
 completedDir = "Completed"
@@ -456,7 +466,7 @@ When Transforming glyphs in this way, it's helpful to skim through the icons aft
 
 [Return to top](#top)
 
-<a name="OT"></a>4.6 Generate OTF ligature code
+<a name="OT"></a>4.5 Generate OTF ligature code
 -----------------------
 ### What does this script do?
 This script takes any glyph categorized as Private Use and generates a full-word ligature substitution. This is the feature that allows a user to type the name of the pictogram and replace those letterforms with the pictogram. After creating a line of code for each pictogram, it updates the OpenType features panel in the Font Info settings.
@@ -495,7 +505,7 @@ This code exports in the form of [Adobe'd Feature File Syntax](https://www.adobe
 
 [Return to top](#top)
 
-<a name="export"></a>4.7 Export Font files
+<a name="export"></a>4.6 Export Font files
 -----------------------
 Using standard methods in Glyphs, export the project to all major font versions.
 
@@ -516,7 +526,7 @@ The names of these files will be the same as the name used in the Font Info menu
 
 [Return to top](#top)
 
-<a name="htmlguide"></a>4.8 Create HTML guide for reference
+<a name="htmlguide"></a>4.7 Create HTML guide for reference
 -----------------------
 Select all the Pictograms in the project and run the script `Create HTML Guide from Selected Glyphs...`
 
@@ -549,27 +559,16 @@ for myGlyph in PUAglyphs:
 	htmlIconComponent = tab + tab + tab + tab + '<li class="icon-child">' + lineBreak + tab + tab + tab + tab + tab + '<div class="iconTitle">' + myGlyph.name + '</div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="se-icons cheatSheetIcon se-' + myGlyph.name + '"></div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="unicodeChar"> unicode: <code>' + myGlyph.unicode + '</code></div>' + lineBreak + tab + tab + tab + tab + '</li>' + lineBreak
 	htmlIconList.append( htmlIconComponent )
 
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/"))
 
 file = open("PictogramGuide.html","w")
 
 file.write(str(lineBreak + htmlBeforeCSS + lineBreak + separator.join( cssIconList ) + lineBreak + htmlAfterCSS + separator.join( htmlIconList ) + lineBreak + htmlFooter))
 print ("Guide File Created.")
 ```
-
-
 ### Important notes before running script:
 While it is not the most eloquent piece of HTML/CSS code, this is meant to be as self-contained as possible. In this version, you only need to share the `.html` file and `/fonts` folder together.
 
-If you want to make the latest version of the Pictogram font always accessible, it is best to store exported font files on a web server that can be called up by this guide. That would allow this single HTML file to be shared and always show the latest version of the pictograms.
+If you want to make the latest version of the Pictogram font always accessible, it is best to store exported font files on a web server that can be called up by this guide. That would allow this single HTML file to be shared and always show the latest version of the pictograms. You would then change the link to these files to a URL instead of file path.
 
 [Return to top](#top)
-
-4.3 Scripting in Glyphs
------------------------
-### Dependencies Needed for Programming in Glyphs
-There are a few packages that you will need to maximize the efficiency of using Python in Glyphs. As I am not a full fledged developer, I fully admit that some of these tools may not be needed in every instance, but it's what I have at my disposal to get these jobs completed.
-#### Python
-I've installed [Python 2.7.14](https://www.python.org/downloads/release/python-2714/) on my Mac OS X 10.13.2.
-#### Vanilla
-Go to Glyphs > Preferences > Addons > Modules and click the Install Modules button. This is often needed when interacting with the Glyphs GUI itself. Not required for all scripts, but some utilize Vanilla to manipulate Glyphs directly, so it's best to install it before starting.
