@@ -1,9 +1,9 @@
-#MenuTitle: 3. Import New EPS Outlines...
+#MenuTitle: 3. Resize to 75% of UPM...
 # -*- coding: utf-8 -*-
 __doc__="""
-Clear any leftover pictograms/ test paths in any glyphs that have a matching EPS file. Find EPS files in designated folder, move them to the Import folder, then open the Import Outlines dialog to allow user to import outlines
+Sorts glyphs into portrait, landscape, and square categories. Final output has a 12.5 percent margin around icon, resulting in icons 768 units wide or high.
 
-QUICK START: Double check the path to the EPS files (line 11). Only select/resize glyphs with a unicode of E700 or higher.
+QUICK START: Double check the path to the EPS files (line 11). Paste into Macro window, run two times.
 """
 import os, GlyphsApp, shutil
 
@@ -50,10 +50,10 @@ def scaleToWidth():
 			xOrigin = layer.bounds.origin.x
 			yOrigin = layer.bounds.origin.y
 			layer.applyTransform([
-                        			layer.width / layer.bounds.size.width, # x scale factor
+                        			(1024 * 0.75) / layer.bounds.size.width, # x scale factor
                         			0.0, # x skew factor
                         			0.0, # y skew factor
-                        			layer.width / layer.bounds.size.width, # y scale factor
+                        			(1024 * 0.75) / layer.bounds.size.width, # y scale factor
                         			-xOrigin, # x position
                         			-yOrigin  # y position
                         		])
@@ -64,10 +64,10 @@ def scaleToHeight():
 			xOrigin = layer.bounds.origin.x
 			yOrigin = layer.bounds.origin.y
 			layer.applyTransform([
-                        			layer.width / layer.bounds.size.height, # x scale factor
+                        			(1024 * 0.75) / layer.bounds.size.height, # x scale factor
                         			0.0, # x skew factor
                         			0.0, # y skew factor
-                        			layer.width / layer.bounds.size.height, # y scale factor
+                        			(1024 * 0.75) / layer.bounds.size.height, # y scale factor
                         			-xOrigin, # x position
                         			-yOrigin  # y position
 
