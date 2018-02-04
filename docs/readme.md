@@ -94,6 +94,7 @@ Project Folder
 ├── EPS
 │   └── Import
 │       └── Completed
+├── fonts
 └── Glyphs
 ```
 The `EPS > Import > Completed` tree is the most important in this step, because the scripts are looking for those folders to move EPS files as they are being processed.
@@ -353,12 +354,12 @@ The `runascript()` function is a string of AppleScript code that will use the ke
 
 [Return to top](#top)
 
-<a name="resize"></a>4.4 Resize the glyphs that are not 1024 units
+<a name="resize"></a>4.4 Resize the glyphs that are not 768 units
 -----------------------
-Select only the glyphs with a unicode value of `E700` or higher, then run `Resize Pictograms to Full Width...`
+Now that the EPS files are imported into the Glyphs app, they need to be scaled from their small size to a usable height and width. Run `Resize Pictograms to 75% of UPM...`
 
 ### What does this script do?
-This script calculates the size of each pictogram and scales it to the  width of 768 units, which is is 75% UPM of the font. This will ensure that no matter the size of the original icon, it will match the others and allow for reliable placement of the icon along the baseline.
+This script calculates the size of each pictogram and scales it to the  width of 768 units, which is is 75% UPM of the font (1024). This will ensure that no matter the size of the original icon, it will match the others and allow for reliable placement of the icon in the center of the frame. 
 
 This script also moves the EPS files that are currently in the `Import` folder into the `Completed` folder. This will help you know which pictograms have been fully manipulated. In order to see which pictograms did not import, the script will move the successful ones out of sight, leaving only the potentially problematic files.
 ### What's in this script?
@@ -376,12 +377,14 @@ xMax = []
 yMax = []
 sameMax = []
 
+# Find and group PUA category
 for myFont in Glyphs.fonts:
     for myGlyph in myFont.glyphs:
         if myGlyph.category == "Private Use":
         	PUAglyphs.append(myGlyph)
     print "PUAglyphs collected."
 
+# Sort by width or height or square
 for eachGlyph in PUAglyphs:
 	for layer in eachGlyph.layers:
 		if layer.bounds.size.width > layer.bounds.size.height:
@@ -398,6 +401,7 @@ for eachGlyph in PUAglyphs:
 		else:
 			print (eachGlyph.name + "-----ERROR-----")
 
+# Transforms along width and square categories
 def scaleToWidth():
 	# These two lists can be combined to simplify the loop.
 	widthPriority = xMax + sameMax
@@ -412,9 +416,11 @@ def scaleToWidth():
                         			0.0, # x skew factor
                         			0.0, # y skew factor
                         			(1024 * 0.75) / layer.bounds.size.width, # y scale factor
-                        			0, # x position
-                        			0  # y position
+                        			-xOrigin, # x position
+                        			-yOrigin  # y position
                         		])
+
+# Transforms along height categories
 def scaleToHeight():
 	for glyph in yMax:
 		for layer in glyph.layers:
@@ -426,11 +432,26 @@ def scaleToHeight():
                         			0.0, # x skew factor
                         			0.0, # y skew factor
                         			(1024 * 0.75) / layer.bounds.size.height, # y scale factor
-                        			0, # x position
-                        			0  # y position
+                        			-xOrigin, # x position
+                        			-yOrigin  # y position
 
                         		])
 
+# Centers glyps in middle of frame                                
+def centerGlyph():
+    for glyph in PUAglyphs:
+        for layer in glyph:
+            xOrigin = layer.bounds.origin.x
+			yOrigin = layer.bounds.origin.y
+            layer.applyTransform([
+                        			1, # x scale factor
+                        			0.0, # x skew factor
+                        			0.0, # y skew factor
+                        			1, # y scale factor
+                        			(layer.width - layer.bounds.size.width) // 2, # x position
+                        			(layer.width - layer.bounds.size.height) // 2  # y position
+
+                        		])
 
 # Creates new directory for the selected glyph, so Glyphs.app can find and grab it
 def moveToCompletedDir():
@@ -452,6 +473,7 @@ for thisGlyph in PUAglyphs:
 
 scaleToWidth()
 scaleToHeight()
+centerGlyph()
 ```
 ### Important notes before running script:
 Similar to previous steps, this time you must update this line of code to match the location of the EPS files. Be careful to note backslashes and your Mac's username, and it may be necessary to begin the path with `~/`:
