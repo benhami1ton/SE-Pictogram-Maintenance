@@ -13,8 +13,6 @@ The goal of this documentation is to provide in-depth information on how to upda
 
 ### **[1. Create Project Directory](#projectdirectory)**
 ### **[2. Export Pictograms from Adobe Illustrator](#illustrator)**
-- [2.1 Exporting EPS](#EPSfiles)
-
 ### **[3. Prepare Pictogram CSV File](#prepCSV)**
 - [3.1 Convert Spreadsheet to CSV](#createCSV)
 
@@ -103,13 +101,6 @@ The `EPS > Import > Completed` tree is the most important in this step, because 
 
 # 2. <a name="illustrator"></a>Export Pictograms from Adobe Illustrator
 The first major step will be to prepare all of the icons to be imported into a font design software. This includes working with each icon and manipulating it in Illustrator until it is ready for export as an EPS file to be brought into Glyphs. *It is important to note that the name of the exported file must match exactly to the names that will be listed in the CSV file used later.*
-
-The
-
-
-### 2.1 Exporting EPS
-
-The f
 
 [Return to top](#top)
 
@@ -359,7 +350,7 @@ The `runascript()` function is a string of AppleScript code that will use the ke
 Now that the EPS files are imported into the Glyphs app, they need to be scaled from their small size to a usable height and width. Run `Resize Pictograms to 75% of UPM...`
 
 ### What does this script do?
-This script calculates the size of each pictogram and scales it to the  width of 768 units, which is is 75% UPM of the font (1024). This will ensure that no matter the size of the original icon, it will match the others and allow for reliable placement of the icon in the center of the frame. 
+This script calculates the size of each pictogram and scales it to the  width of 768 units, which is is 75% UPM of the font (1024). This will ensure that no matter the size of the original icon, it will match the others and allow for reliable placement of the icon in the center of the frame.
 
 This script also moves the EPS files that are currently in the `Import` folder into the `Completed` folder. This will help you know which pictograms have been fully manipulated. In order to see which pictograms did not import, the script will move the successful ones out of sight, leaving only the potentially problematic files.
 ### What's in this script?
