@@ -1,9 +1,11 @@
 #MenuTitle: 4. Update OT Ligature Features...
 # -*- coding: utf-8 -*-
 __doc__="""
-Selects only Private Use category items and creates ligature code (sub e x a m p l e by example). Applies feature to font.
+Selects only Private Use category items and creates ligature code
+(sub e x a m p l e by example). Applies feature to font.
 
-QUICK START: Only select glyphs with a unicode of E700 or higher. Script will add text to the clipboard, so go to the Font Info > Features > Liga and overwrite the existing text with what's on the clipboard.
+QUICK START: Paste into Macro Window and run. Must Update and Compile
+before exporting font.
 """
 import GlyphsApp
 

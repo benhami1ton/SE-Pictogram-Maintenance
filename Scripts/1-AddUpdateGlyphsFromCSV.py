@@ -1,9 +1,14 @@
 #MenuTitle: 1. Add/Update Glyphs From Pictogram CSV...
 # -*- coding: utf-8 -*-
 __doc__="""
-References CSV to match unicode values to Glyphs app. If missing from Glyphs, new glyph objects are added with missing unicode values. If names differ from CSV list, names are updated.
+References CSV to match unicode values to Glyphs app.
+If missing from Glyphs, new glyph objects are added
+with missing unicode values. If names differ from CSV list,
+names are updated.
 
-QUICK START: Double check the path to the CSV file (line 18) and the name of the CSV file (line 30). No need to select any glyphs when running this script.
+QUICK START: Double check the path to the CSV file (line 23)
+and the name of the CSV file (line 35). No need to select any 
+glyphs when running this script.
 """
 # Import modules needed to run script
 import os, csv, GlyphsApp

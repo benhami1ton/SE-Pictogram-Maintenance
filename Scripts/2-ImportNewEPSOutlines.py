@@ -1,9 +1,13 @@
 	#MenuTitle: 2. Import New EPS Outlines...
 	# -*- coding: utf-8 -*-
 	__doc__="""
-	Clear any leftover pictograms/ test paths in any glyphs that have a matching EPS file. Find EPS files in designated folder, move them to the Import folder, then open the Import Outlines dialog to allow user to import outlines
+	Clear any leftover pictograms/ test paths in any glyphs
+	that have a matching EPS file. Find EPS files in designated
+	folder, move them to the Import folder, then open the
+	Import Outlines dialog to allow user to import outlines.
 
-	QUICK START: Double check the path to the EPS files (line 16 & 61). Remember to Select All the files before running the script.
+	QUICK START: Double check the path to the EPS files (line 20 & 65). 
+	Remember to Select All the files before running the script.
 	"""
 	import os, errno, shutil, GlyphsApp, subprocess, time
 	from subprocess import Popen, PIPE

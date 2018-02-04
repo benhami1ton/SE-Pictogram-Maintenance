@@ -1,9 +1,13 @@
 #MenuTitle: 3. Resize to 75% of UPM...
 # -*- coding: utf-8 -*-
 __doc__="""
-Sorts glyphs into portrait, landscape, and square categories. Final output has a 12.5 percent margin around icon, resulting in icons 768 units wide or high.
+Sorts glyphs into portrait, landscape, and square categories.
+Final output has a 12.5 percent margin around icon, resulting
+in icons 768 units wide or high. Also moves EPS files to
+Completed folder.
 
-QUICK START: Double check the path to the EPS files (line 11). Paste into Macro window, run two times.
+QUICK START: Double check the path to the EPS files (line 15).
+Paste into Macro window, run two times.
 """
 import os, GlyphsApp, shutil
 
@@ -18,12 +22,14 @@ xMax = []
 yMax = []
 sameMax = []
 
+# Find and group PUA category
 for myFont in Glyphs.fonts:
     for myGlyph in myFont.glyphs:
         if myGlyph.category == "Private Use":
         	PUAglyphs.append(myGlyph)
     print "PUAglyphs collected."
 
+# Sort by width or height or square
 for eachGlyph in PUAglyphs:
 	for layer in eachGlyph.layers:
 		if layer.bounds.size.width > layer.bounds.size.height:
@@ -40,6 +46,7 @@ for eachGlyph in PUAglyphs:
 		else:
 			print (eachGlyph.name + "-----ERROR-----")
 
+# Transforms along width and square categories
 def scaleToWidth():
 	# These two lists can be combined to simplify the loop.
 	widthPriority = xMax + sameMax
@@ -57,6 +64,8 @@ def scaleToWidth():
                         			-xOrigin, # x position
                         			-yOrigin  # y position
                         		])
+
+# Transforms along height categories
 def scaleToHeight():
 	for glyph in yMax:
 		for layer in glyph.layers:
@@ -72,6 +81,8 @@ def scaleToHeight():
                         			-yOrigin  # y position
 
                         		])
+
+# Centers glyps in middle of frame                                
 def centerGlyph():
     for glyph in PUAglyphs:
         for layer in glyph:
