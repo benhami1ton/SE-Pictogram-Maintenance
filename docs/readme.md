@@ -18,15 +18,12 @@ The goal of this documentation is to provide in-depth information on how to upda
 
 ### **[4. Working With Glyphs](#glyphsapp)**
 - [4.1 Create Working Glyphs Document](#saveAs)
-- [4.2 Create new glyph slots using the CSV file](#addglyphs)
-- [4.3 Update the names of all glyphs using the CSV file](#newnames)
-- [4.4 Import the EPS outlines to their corresponding glyph](#importoutlines)
-- [4.5 Resize the glyphs that are not 1024 units](#resize)
-- [4.6 Generate OTF ligature code](#OT)
-- [4.7 Export font files](#export)
-- [4.8 Create HTML guide for reference](#htmlguide)
-
-
+- [4.2 Create new glyph slots and update names using the CSV file](#addglyphs)
+- [4.3 Import the EPS outlines to their corresponding glyph](#importoutlines)
+- [4.4 Resize the glyphs that are not 1024 units](#resize)
+- [4.5 Generate OTF ligature code](#OT)
+- [4.6 Export font files](#export)
+- [4.7 Create HTML guide for reference](#htmlguide)
 
 [Return to top](#top)
 
