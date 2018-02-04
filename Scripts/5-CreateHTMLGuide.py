@@ -31,7 +31,7 @@ for myGlyph in PUAglyphs:
 	htmlIconComponent = tab + tab + tab + tab + '<li class="icon-child">' + lineBreak + tab + tab + tab + tab + tab + '<div class="iconTitle">' + myGlyph.name + '</div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="se-icons cheatSheetIcon se-' + myGlyph.name + '"></div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="unicodeChar"> unicode: <code>' + myGlyph.unicode + '</code></div>' + lineBreak + tab + tab + tab + tab + '</li>' + lineBreak
 	htmlIconList.append( htmlIconComponent )
 
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.3/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/"))
 
 file = open("PictogramGuide.html","w")
 
