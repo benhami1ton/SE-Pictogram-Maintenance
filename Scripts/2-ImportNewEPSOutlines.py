@@ -17,7 +17,7 @@
 	cwd
 
 	# Change directory to location of EPS folder
-	os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/"))
+	os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.5/EPS/"))
 
 
 	currentDir = os.getcwd()
@@ -62,7 +62,7 @@
 				delay 0.5
 				keystroke "g" using {command down, shift down}
 				delay 0.5
-				keystroke "~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/Import/"
+				keystroke "~/Downloads/SE-Pictogram-Maintenance-0.5/EPS/Import/"
 				delay 2
 				keystroke return
 

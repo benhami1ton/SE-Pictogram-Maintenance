@@ -7,7 +7,7 @@ with missing unicode values. If names differ from CSV list,
 names are updated.
 
 QUICK START: Double check the path to the CSV file (line 23)
-and the name of the CSV file (line 35). No need to select any 
+and the name of the CSV file (line 35). No need to select any
 glyphs when running this script.
 """
 # Import modules needed to run script
@@ -20,7 +20,7 @@ Glyphs.clearLog()
 cwd = os.getcwd()
 
 # Change directory to location of CSV file
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/CSV/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.5/CSV/"))
 
 # Create a dictionary to store the new names
 newNames = {}
@@ -32,7 +32,7 @@ def GetUpdatedNames():
             newNames[line[0]] = line[-2]
 
 # Open Pictogram CSV file and check for new entries
-with open('SE-Pictogram-Maintenance-0.4.csv', 'r') as csv_file:
+with open('SE-Pictogram-Maintenance-0.5.csv', 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
     # Skip header information
     next(csv_reader)

@@ -154,7 +154,7 @@ Glyphs.clearLog()
 cwd = os.getcwd()
 
 # Change directory to location of CSV file
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/CSV/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.5/CSV/"))
 
 # Create a dictionary to store the new names
 newNames = {}
@@ -166,7 +166,7 @@ def GetUpdatedNames():
            newNames[line[0]] = line[-2]
 
 # Open Pictogram CSV file and check for new entries
-with open('SE-Pictogram-Maintenance-0.4.csv', 'r') as csv_file:
+with open('SE-Pictogram-Maintenance-0.5.csv', 'r') as csv_file:
    csv_reader = csv.reader(csv_file)
    # Skip header information
    next(csv_reader)
@@ -258,7 +258,7 @@ cwd = os.getcwd()
 cwd
 
 # Change directory to location of EPS folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.5/EPS/"))
 
 
 currentDir = os.getcwd()
@@ -303,7 +303,7 @@ def runascript():
 			delay 0.5
 			keystroke "g" using {command down, shift down}
 			delay 0.5
-			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/Import/"
+			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.5/EPS/Import/"
 			delay 2
 			keystroke return
 
@@ -355,7 +355,7 @@ This script also moves the EPS files that are currently in the `Import` folder i
 import os, GlyphsApp, shutil
 
 # Change directory to location of Import folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/EPS/Import/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.5/EPS/Import/"))
 
 currentDir = os.getcwd()
 completedDir = "Completed"
@@ -569,7 +569,7 @@ for myGlyph in PUAglyphs:
 	htmlIconComponent = tab + tab + tab + tab + '<li class="icon-child">' + lineBreak + tab + tab + tab + tab + tab + '<div class="iconTitle">' + myGlyph.name + '</div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="se-icons cheatSheetIcon se-' + myGlyph.name + '"></div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="unicodeChar"> unicode: <code>' + myGlyph.unicode + '</code></div>' + lineBreak + tab + tab + tab + tab + '</li>' + lineBreak
 	htmlIconList.append( htmlIconComponent )
 
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.4/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.5/"))
 
 file = open("PictogramGuide.html","w")
 
