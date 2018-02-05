@@ -11,7 +11,7 @@ Paste into Macro window, run two times.
 import os, GlyphsApp, shutil
 
 # Change directory to location of Import folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.6/EPS/Import/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.7/EPS/Import/"))
 
 currentDir = os.getcwd()
 completedDir = "Completed"
