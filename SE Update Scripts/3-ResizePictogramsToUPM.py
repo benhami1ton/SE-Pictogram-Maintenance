@@ -11,7 +11,7 @@ Paste into Macro window, run two times.
 import os, GlyphsApp, shutil
 
 # Change directory to location of Import folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.8/EPS/Import/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.9/EPS/Import/"))
 
 currentDir = os.getcwd()
 completedDir = "Completed"
@@ -52,9 +52,13 @@ def scaleToWidth():
 
 	for glyph in widthPriority:
 		for layer in glyph.layers:
+
 			xOrigin = layer.bounds.origin.x
 			yOrigin = layer.bounds.origin.y
-			layer.applyTransform([
+			if layer.bounds.size.width == 0:
+				print (layer.parent.name + " needs attention.")
+			else:
+				layer.applyTransform([
                         			layer.width / layer.bounds.size.width, # x scale factor
                         			0.0, # x skew factor
                         			0.0, # y skew factor
@@ -67,13 +71,17 @@ def scaleToWidth():
 def scaleToHeight():
 	for glyph in yMax:
 		for layer in glyph.layers:
+			print (layer.parent.name + " | " + layer.name + ' scaled by factor of ' + str((1024 * 0.75) / layer.bounds.size.height))
 			xOrigin = layer.bounds.origin.x
 			yOrigin = layer.bounds.origin.y
-			layer.applyTransform([
-                        			layer.width / layer.bounds.size.height, # x scale factor
+			if layer.bounds.size.height == 0:
+				print (layer.parent.name + " needs attention.")
+			else:
+				layer.applyTransform([
+                        			(1024 * 0.75) / layer.bounds.size.height, # x scale factor
                         			0.0, # x skew factor
                         			0.0, # y skew factor
-                        			layer.width / layer.bounds.size.height, # y scale factor
+                        			(1024 * 0.75) / layer.bounds.size.height, # y scale factor
                         			-xOrigin, # x position
                         			-yOrigin  # y position
 

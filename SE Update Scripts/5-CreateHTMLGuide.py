@@ -3,7 +3,7 @@
 __doc__="""
 Generates HTML page to show usage for each glyph. Can be searched to find the names or unicode.
 
-QUICK START: Paste into Macro panel and run script. File will be placed in Downloads > SE-Pictogram-Maintenance-0.8
+QUICK START: Paste into Macro panel and run script. File will be placed in Downloads > SE-Pictogram-Maintenance-0.9
 Requires fonts to be exported in OTF, TTF, WOFF, and WOFF2 in the /fonts folder to fully work.
 """
 import os, GlyphsApp
@@ -31,7 +31,7 @@ for myGlyph in PUAglyphs:
 	htmlIconComponent = tab + tab + tab + tab + '<li class="icon-child">' + lineBreak + tab + tab + tab + tab + tab + '<div class="iconTitle">' + myGlyph.name + '</div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="se-icons cheatSheetIcon se-' + myGlyph.name + '"></div>' + lineBreak + tab + tab + tab + tab + tab + '<div class="unicodeChar"> unicode: <code>' + myGlyph.unicode + '</code></div>' + lineBreak + tab + tab + tab + tab + '</li>' + lineBreak
 	htmlIconList.append( htmlIconComponent )
 
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.8/"))
+os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.9/"))
 
 file = open("PictogramGuide.html","w")
 
