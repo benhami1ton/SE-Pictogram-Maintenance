@@ -16,15 +16,18 @@ from subprocess import Popen, PIPE
 cwd = os.getcwd()
 cwd
 
+getEPSdir = GetFolder(message=None, allowsMultipleSelection = False)
+
 # Change directory to location of EPS folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.9/EPS/"))
+os.chdir(getEPSdir)
 
 
 currentDir = os.getcwd()
 
 myLayers = Glyphs.font.selectedLayers
 thisEPSnewPath = ""
-ImportDir = 'Import'
+ImportDir = 'Ready For Import'
+importDirString = '\"' + currentDir + '/' + ImportDir + '/' + '\"'
 
 
 # Creates new directory for the selected glyph, so Glyphs.app can find and grab it
@@ -59,10 +62,10 @@ def runascript():
 	ascript = """
 		tell application "System Events"
 			keystroke "i" using {command down, shift down}
-			delay 0.5
+			delay 1
 			keystroke "g" using {command down, shift down}
 			delay 0.5
-			keystroke "~/Downloads/SE-Pictogram-Maintenance-0.9/EPS/Import/"
+			keystroke """ + importDirString + """
 			delay 2
 			keystroke return
 
@@ -75,13 +78,14 @@ def runascript():
 # Loop through selected glyphs, to check if there's a new glyph. If there is, it deletes
 # the paths of the selected glyph, imports the new ones, resizes them to the UPM
 for thisLayer in myLayers:
-    thisEPSfile = "%s.eps" % (thisLayer.parent.name)
-    if os.path.exists(thisEPSfile):
-    	removeGlyphPaths()
-    	moveToImportDir()
+	thisEPSfile = "%s.eps" % (thisLayer.parent.name)
+	if os.path.exists(thisEPSfile):
+		removeGlyphPaths()
+		moveToImportDir()
+		thisLayer.parent.color = 9
 #     	print (thisLayer.parent.name + ' was updated. \n')
-    else:
-    	print (thisLayer.parent.name + ' was not affected. \n')
+	else:
+		print (thisLayer.parent.name + ' was not affected. \n')
 
 # Run import command
 runascript()

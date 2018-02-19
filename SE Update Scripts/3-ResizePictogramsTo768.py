@@ -11,11 +11,13 @@ Paste into Macro window, run two times.
 """
 import os, GlyphsApp, shutil
 
+getImportdir = GetFolder(message=None, allowsMultipleSelection = False)
+
 # Change directory to location of Import folder
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.9/EPS/Import/"))
+os.chdir(getImportdir)
 
 currentDir = os.getcwd()
-completedDir = "Completed"
+completedDir = "Completed Pictograms"
 thisEPSnewPath = ""
 PUAglyphs = []
 xMax = []
@@ -107,8 +109,8 @@ def centerGlyph():
 
 # Creates new directory for the selected glyph, so Glyphs.app can find and grab it
 def moveToCompletedDir():
-	thisImportEPSoldPath = str(currentDir + '/' + thisEPSfile)
-	thisImportEPSnewPath = str(currentDir + '/' + completedDir + '/' + thisEPSfile)
+	thisImportEPSoldPath = str(getImportdir + '/' + thisEPSfile)
+	thisImportEPSnewPath = str(getImportdir + '/' + completedDir + '/' + thisEPSfile)
 	if not os.path.exists(completedDir):
 		os.makedirs(completedDir)
 	shutil.move(thisImportEPSoldPath, thisImportEPSnewPath)
