@@ -16,11 +16,10 @@ import os, csv, GlyphsApp
 # Clears Macro panel printout. Comment this out to keep each iteration of script run.
 Glyphs.clearLog()
 
-# Retrieve current working directory (`cwd`)
-cwd = os.getcwd()
+chooseCSV = GetOpenFile(message=None, allowsMultipleSelection=False, filetypes=["csv"])
 
 # Change directory to location of CSV file
-os.chdir(os.path.expanduser("~/Downloads/SE-Pictogram-Maintenance-0.9/CSV/"))
+os.chdir(chooseCSV)
 
 # Create a dictionary to store the new names
 newNames = {}
@@ -32,7 +31,7 @@ def GetUpdatedNames():
             newNames[line[0]] = line[-2]
 
 # Open Pictogram CSV file and check for new entries
-with open('SE-Pictogram-Maintenance-0.9.csv', 'r') as csv_file:
+with open(chooseCSV, 'r') as csv_file:
     csv_reader = csv.reader(csv_file)
     # Skip header information
     next(csv_reader)
@@ -58,7 +57,6 @@ def createNewPictograms():
 			Font.glyphs.append(newGlyph)
 			newPictograms = True
 			print(key + " doesn't exist already, new glyph made.")
-			newGlyph.color = 2
 	# Prints to inform you that nothing changed.
 	if newPictograms == False:
 		print("No new pictograms were added.")
@@ -77,7 +75,6 @@ def renameExistingPictograms():
 					glyph.name = val
 					nameChanged = True
 					print(str(glyph.unicode) + ' has become ' + str(glyph.name))
-					glyph.color = 2
 
     # Prints to inform you that nothing changed.
 	if nameChanged == False:
