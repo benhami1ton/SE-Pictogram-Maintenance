@@ -6,8 +6,6 @@ that have a matching EPS file. Find EPS files in designated
 folder, move them to the Import folder, then open the
 Import Outlines dialog to allow user to import outlines.
 
-QUICK START: Double check the path to the EPS files (line 20 & 65).
-Remember to Select All the files before running the script.
 """
 import os, errno, shutil, GlyphsApp, subprocess, time
 from subprocess import Popen, PIPE
@@ -16,6 +14,7 @@ from subprocess import Popen, PIPE
 cwd = os.getcwd()
 cwd
 
+# Ask for location of EPS folder
 getEPSdir = GetFolder(message=None, allowsMultipleSelection = False)
 
 # Change directory to location of EPS folder
