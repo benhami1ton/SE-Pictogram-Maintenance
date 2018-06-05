@@ -1,5 +1,5 @@
-// script.name = SE_stripDocument.jsx;
-// script.description = Batch opening and removing of particular elements, then saves as EPS;
+// script.name = AI_ConvertToEPS.jsx;
+// script.description = Convert SVG to EPS;
 // script.requirements = none
 // script.parent = Benjamin Hamilton
 // script.elegant = false;
@@ -15,7 +15,7 @@ if (folder==null) {
 
 
 else {
-    var files = find_files (folder, ['.svg']);
+    var files = find_files (folder, ['.ai']);
           var fileCount = files.length; // count them
 
 
@@ -24,6 +24,7 @@ else {
                         var currentDoc = app.open(files[i]);
                         // stripDocument();
                         expandAllItems();
+
                         saveAsEPS();
                         currentDoc.close();
 
@@ -58,7 +59,7 @@ function find_files_sub (dir, array, mask){
 }
 
 function expandAllItems(){
-    app.doScript('expandAllItems','Default Actions');
+    app.doScript('expandAllItems','SE-PictogramUpdate');
  }
 
 

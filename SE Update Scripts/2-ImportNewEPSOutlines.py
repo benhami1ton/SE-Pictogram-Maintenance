@@ -1,6 +1,7 @@
 #MenuTitle: 2. Import New EPS Outlines...
 # -*- coding: utf-8 -*-
 __doc__="""
+Chooses EPS folder location.
 Clear any leftover pictograms/ test paths in any glyphs
 that have a matching EPS file. Find EPS files in designated
 folder, move them to the Import folder, then open the
@@ -25,7 +26,7 @@ currentDir = os.getcwd()
 
 myLayers = Glyphs.font.selectedLayers
 thisEPSnewPath = ""
-ImportDir = 'Ready For Import'
+ImportDir = '_Ready For Import'
 importDirString = '\"' + currentDir + '/' + ImportDir + '/' + '\"'
 
 
@@ -81,7 +82,7 @@ for thisLayer in myLayers:
 	if os.path.exists(thisEPSfile):
 		removeGlyphPaths()
 		moveToImportDir()
-		thisLayer.parent.color = 9
+		thisLayer.parent.color = 7
 #     	print (thisLayer.parent.name + ' was updated. \n')
 	else:
 		print (thisLayer.parent.name + ' was not affected. \n')

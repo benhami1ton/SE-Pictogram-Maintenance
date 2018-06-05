@@ -26,7 +26,7 @@ for i in xrange(10):
 	for i,j in illegals.iteritems():
 		ligaCode = ligaCode.replace(i, j)
 
-del(font.features['liga'])
-font.features.append(GSFeature('liga', ligaCode))
-font.updateFeatures()
+del(Glyphs.font.features['liga'])
+Glyphs.font.features.append(GSFeature('liga', ligaCode))
+Glyphs.font.updateFeatures()
 print ligaCode

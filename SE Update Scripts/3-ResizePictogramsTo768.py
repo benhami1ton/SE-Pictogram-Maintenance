@@ -1,15 +1,15 @@
 #MenuTitle: 3. Resize to 75% of UPM...
 # -*- coding: utf-8 -*-
 __doc__="""
+Select location of EPS files in Import folder.
 Sorts glyphs into portrait, landscape, and square categories.
 Final output has a 12.5 percent margin around icon, resulting
 in icons 768 units wide or high. Also moves EPS files to
 Completed folder.
 
-QUICK START: Double check the path to the EPS files (line 15).
-Paste into Macro window, run two times.
+Usually must be run twice.
 """
-import os, GlyphsApp, shutil
+import os, GlyphsApp, shutil, time
 
 getImportdir = GetFolder(message=None, allowsMultipleSelection = False)
 
@@ -123,8 +123,13 @@ for thisGlyph in PUAglyphs:
     thisEPSfile = "%s.eps" % (thisGlyph.name)
     if os.path.exists(thisEPSfile):
     	moveToCompletedDir()
+    	thisGlyph.color = 4
     	print (thisGlyph.name + ' was updated. \n')
 
+scaleToWidth()
+scaleToHeight()
+centerGlyph()
+time.sleep(2)
 scaleToWidth()
 scaleToHeight()
 centerGlyph()

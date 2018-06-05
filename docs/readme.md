@@ -110,13 +110,18 @@ Begin by using the Actions panel in Illustrator to load the `SE-PictogramUpdate`
 
 You will need to add one extra step of saving the file to your desired location. This can be done by opening any file and selecting the `ExpandAllItems` action and clicking the `Record` button, then saving it as an EPS file to your EPS folder. Stop recording and drag the Save As step before the Close step. Delete the newly saved file.
 
+#### Video tutorial:
+[![Imgur](https://i.imgur.com/17nT9nh.jpg)](https://vimeo.com/273455277)
+
+Note: Once this action is done, it can be saved again to your computer for future use.
+
 [Return to top](#top)
 
-##2.2 <a name="SaveSVG"></a>Save Pictograms as SVG
+## 2.2 <a name="SaveSVG"></a>Save Pictograms as SVG
 
 Each icon can be converted to an SVG by dragging the icon into the Asset Export window. NOTE: You must name the icon EXACTLY what you want it to be. Errors in naming will result in missing files. Export these icons to the SVG folder.
 
-##2.3 <a name="BatchProcess"></aRun Batch process of _ExpandAllItems_
+## 2.3 <a name="BatchProcess"></a>Run Batch process of _ExpandAllItems_
 
 Using the Actions panel, select the `ExpandAllItems` action and then use the options menu to choose `Batch...`. Use the following settings and choose your file source where the SVG files are stored. Then choose a destination for the saved files in the EPS folder. Running this should execute the same list of actions found in `ExpandAllItems`:
 
